@@ -53,9 +53,9 @@ export default function Hero3DScene() {
 
     const bodyGeometry = new THREE.BoxGeometry(phoneWidth, phoneHeight, phoneDepth);
     const bodyMaterial = new THREE.MeshStandardMaterial({
-      color: 0x0f172a,
-      metalness: 0.85,
-      roughness: 0.25,
+      color: 0x181716,
+      metalness: 0.75,
+      roughness: 0.35,
     });
     const phoneBody = new THREE.Mesh(bodyGeometry, bodyMaterial);
     phoneGroup.add(phoneBody);
@@ -63,7 +63,7 @@ export default function Hero3DScene() {
     // Phone frame rim / edge highlight
     const frameEdges = new THREE.EdgesGeometry(bodyGeometry);
     const frameMaterial = new THREE.LineBasicMaterial({
-      color: 0x38bdf8,
+      color: 0xd4cec3,
       transparent: true,
       opacity: 0.35,
     });
@@ -73,11 +73,11 @@ export default function Hero3DScene() {
     // Front Screen
     const screenGeometry = new THREE.PlaneGeometry(phoneWidth - 0.18, phoneHeight - 0.3);
     const screenMaterial = new THREE.MeshStandardMaterial({
-      color: 0x050814,
+      color: 0x10100f,
       metalness: 0.2,
-      roughness: 0.1,
-      emissive: 0x0c1328,
-      emissiveIntensity: 0.4,
+      roughness: 0.2,
+      emissive: 0x1a1918,
+      emissiveIntensity: 0.2,
     });
     const screenMesh = new THREE.Mesh(screenGeometry, screenMaterial);
     screenMesh.position.z = phoneDepth / 2 + 0.005;
@@ -85,7 +85,7 @@ export default function Hero3DScene() {
 
     // Dynamic Island / notch
     const notchGeo = new THREE.PlaneGeometry(0.75, 0.16);
-    const notchMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+    const notchMat = new THREE.MeshBasicMaterial({ color: 0x050505 });
     const notchMesh = new THREE.Mesh(notchGeo, notchMat);
     notchMesh.position.set(0, phoneHeight / 2 - 0.32, phoneDepth / 2 + 0.008);
     phoneGroup.add(notchMesh);
@@ -98,11 +98,11 @@ export default function Hero3DScene() {
     // Card 1
     const card1Geo = new THREE.PlaneGeometry(1.8, 1.0);
     const card1Mat = new THREE.MeshStandardMaterial({
-      color: 0x1e293b,
+      color: 0x242321,
       metalness: 0.1,
-      roughness: 0.3,
-      emissive: 0x38bdf8,
-      emissiveIntensity: 0.15,
+      roughness: 0.35,
+      emissive: 0xc25e30,
+      emissiveIntensity: 0.18,
     });
     const card1 = new THREE.Mesh(card1Geo, card1Mat);
     card1.position.set(0, 0.6, 0);
@@ -111,11 +111,11 @@ export default function Hero3DScene() {
     // Card 2
     const card2Geo = new THREE.PlaneGeometry(1.8, 0.8);
     const card2Mat = new THREE.MeshStandardMaterial({
-      color: 0x111827,
+      color: 0x1e1d1b,
       metalness: 0.1,
-      roughness: 0.3,
-      emissive: 0x6366f1,
-      emissiveIntensity: 0.15,
+      roughness: 0.35,
+      emissive: 0x78746c,
+      emissiveIntensity: 0.12,
     });
     const card2 = new THREE.Mesh(card2Geo, card2Mat);
     card2.position.set(0, -0.6, 0);
@@ -123,34 +123,34 @@ export default function Hero3DScene() {
 
     // Bottom Navigation line
     const navBarGeo = new THREE.PlaneGeometry(1.6, 0.22);
-    const navBarMat = new THREE.MeshBasicMaterial({ color: 0x1e293b });
+    const navBarMat = new THREE.MeshBasicMaterial({ color: 0x2a2926 });
     const navBar = new THREE.Mesh(navBarGeo, navBarMat);
     navBar.position.set(0, -1.8, 0);
     uiLinesGroup.add(navBar);
 
     // ==================== ORBITAL TECH RINGS ====================
-    // Ring 1 (Cyan Orbit)
-    const ring1Geo = new THREE.TorusGeometry(3.2, 0.025, 16, 100);
+    // Ring 1 (Terracotta Orbit)
+    const ring1Geo = new THREE.TorusGeometry(3.2, 0.022, 16, 100);
     const ring1Mat = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
-      emissive: 0x38bdf8,
-      emissiveIntensity: 0.6,
+      color: 0xc25e30,
+      emissive: 0xc25e30,
+      emissiveIntensity: 0.35,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.6,
     });
     const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
     ring1.rotation.x = Math.PI / 3;
     ring1.rotation.y = Math.PI / 6;
     rootGroup.add(ring1);
 
-    // Ring 2 (Purple Orbit)
-    const ring2Geo = new THREE.TorusGeometry(3.7, 0.02, 16, 100);
+    // Ring 2 (Titanium / Champagne Orbit)
+    const ring2Geo = new THREE.TorusGeometry(3.7, 0.018, 16, 100);
     const ring2Mat = new THREE.MeshStandardMaterial({
-      color: 0xa855f7,
-      emissive: 0xa855f7,
-      emissiveIntensity: 0.5,
+      color: 0xd4cec3,
+      emissive: 0xd4cec3,
+      emissiveIntensity: 0.25,
       transparent: true,
-      opacity: 0.65,
+      opacity: 0.5,
     });
     const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
     ring2.rotation.x = -Math.PI / 4;
@@ -158,31 +158,31 @@ export default function Hero3DScene() {
     rootGroup.add(ring2);
 
     // Orbital satellite spheres
-    const orb1Geo = new THREE.SphereGeometry(0.12, 16, 16);
-    const orb1Mat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+    const orb1Geo = new THREE.SphereGeometry(0.11, 16, 16);
+    const orb1Mat = new THREE.MeshBasicMaterial({ color: 0xc25e30 });
     const orb1 = new THREE.Mesh(orb1Geo, orb1Mat);
     rootGroup.add(orb1);
 
-    const orb2Geo = new THREE.SphereGeometry(0.09, 16, 16);
-    const orb2Mat = new THREE.MeshBasicMaterial({ color: 0xc084fc });
+    const orb2Geo = new THREE.SphereGeometry(0.08, 16, 16);
+    const orb2Mat = new THREE.MeshBasicMaterial({ color: 0xd4cec3 });
     const orb2 = new THREE.Mesh(orb2Geo, orb2Mat);
     rootGroup.add(orb2);
 
     // ==================== LIGHTING ====================
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    const ambientLight = new THREE.AmbientLight(0xfdfaf5, 1.4);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    const keyLight = new THREE.DirectionalLight(0xfff8ee, 2.2);
     keyLight.position.set(5, 8, 5);
     scene.add(keyLight);
 
-    const cyanPoint = new THREE.PointLight(0x38bdf8, 3.5, 10);
-    cyanPoint.position.set(-2.5, 1.5, 2.5);
-    scene.add(cyanPoint);
+    const terracottaPoint = new THREE.PointLight(0xc25e30, 2.2, 10);
+    terracottaPoint.position.set(-2.5, 1.5, 2.5);
+    scene.add(terracottaPoint);
 
-    const purplePoint = new THREE.PointLight(0x818cf8, 2.8, 10);
-    purplePoint.position.set(2.5, -2, 2.5);
-    scene.add(purplePoint);
+    const champagnePoint = new THREE.PointLight(0xd4cec3, 1.6, 10);
+    champagnePoint.position.set(2.5, -2, 2.5);
+    scene.add(champagnePoint);
 
     // ==================== MOUSE INTERACTION ====================
     let mouseX = 0;
@@ -318,8 +318,8 @@ export default function Hero3DScene() {
       />
 
       {/* Subtle indicator caption below 3D */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none px-3 py-1 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-[10px] text-slate-400 flex items-center gap-1.5">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none px-3 py-1 rounded-full bg-[#181716]/80 backdrop-blur-md border border-white/10 text-[10px] text-[#D4CEC3] flex items-center gap-1.5 shadow-xs">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#C25E30] animate-pulse" />
         Interactive 3D • React Native Device
       </div>
     </div>

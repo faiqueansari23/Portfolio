@@ -41,7 +41,7 @@ export default function CustomCursorGlow() {
         transform: 'translate(-50%, -50%)',
       }}
     >
-      <div className="w-[380px] h-[380px] rounded-full bg-gradient-to-tr from-cyan-500/10 via-indigo-500/10 to-transparent blur-[70px]" />
+      <div className="w-[320px] h-[320px] rounded-full bg-gradient-to-tr from-[#C25E30]/5 via-[#D4CEC3]/8 to-transparent blur-[60px]" />
     </div>
   );
 }

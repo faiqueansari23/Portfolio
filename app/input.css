@@ -2,21 +2,44 @@
 
 @layer base {
   :root {
-    --bg-primary: #07080c;
-    --bg-secondary: #0d0f18;
-    --bg-card: rgba(18, 22, 36, 0.75);
-    --border-card: rgba(255, 255, 255, 0.08);
-    --accent-cyan: #38bdf8;
-    --accent-indigo: #6366f1;
-    --accent-purple: #a855f7;
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    /* Centralized Editorial Theme System */
+    /* Warm light background palette */
+    --bg-primary: #F8F6F1;
+    --bg-surface: #FFFFFF;
+    --bg-surface-warm: #EFECE6;
+    --bg-surface-subtle: #F3EFE8;
+
+    /* Deep charcoal dark palette */
+    --bg-dark: #121211;
+    --bg-dark-surface: #181816;
+    --bg-dark-card: #1E1D1B;
+    --bg-dark-elevated: #252422;
+
+    /* Borders */
+    --border-light: #E2DDD5;
+    --border-light-subtle: #ECE8E1;
+    --border-dark: rgba(255, 255, 255, 0.08);
+    --border-dark-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Typography: Light sections */
+    --text-primary: #121211;
+    --text-secondary: #4A4742;
+    --text-muted: #7D7971;
+
+    /* Typography: Dark sections */
+    --text-dark-primary: #FAF8F5;
+    --text-dark-secondary: #B5B1A8;
+    --text-dark-muted: #78746C;
+
+    /* Minimal Editorial Accent: Warm Terracotta / Earth Tone */
+    --accent: #C25E30;
+    --accent-hover: #A84E22;
+    --accent-muted: rgba(194, 94, 48, 0.12);
+    --accent-border: rgba(194, 94, 48, 0.32);
   }
 
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
     background-color: var(--bg-primary);
     color: var(--text-primary);
   }
@@ -31,84 +54,112 @@
   }
 
   ::selection {
-    background: rgba(99, 102, 241, 0.35);
-    color: #ffffff;
+    background: #121211;
+    color: #FAF8F5;
   }
 
-  /* Custom scrollbar */
+  /* Custom subtle scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 7px;
   }
   ::-webkit-scrollbar-track {
-    background: #07080c;
+    background: #F3EFE8;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: #C7C1B5;
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #A8A295;
   }
 }
 
-/* Glassmorphism and glow utilities */
+/* Editorial Surfaces & Panels */
+.editorial-card-light {
+  background-color: #FFFFFF;
+  border: 1px solid #E2DDD5;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+}
+
+.editorial-card-dark {
+  background-color: #181816;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .glass-panel {
-  background: rgba(15, 20, 32, 0.7);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid #E2DDD5;
+}
+
+.glass-panel-subtle {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #ECE8E1;
+}
+
+.glass-panel-dark {
+  background: rgba(24, 24, 22, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.glass-panel-subtle {
-  background: rgba(15, 20, 32, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
 .glass-panel-highlight {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: #181816;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.28);
 }
 
-.glow-cyan {
-  box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.35);
-}
-
-.glow-indigo {
-  box-shadow: 0 0 30px -5px rgba(99, 102, 241, 0.35);
-}
-
+/* Text Gradients */
 .gradient-text {
-  background: linear-gradient(135deg, #ffffff 20%, #94a3b8 100%);
+  background: linear-gradient(135deg, #121211 30%, #4A4742 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-light {
+  background: linear-gradient(135deg, #FAF8F5 40%, #B5B1A8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gradient-text-accent {
-  background: linear-gradient(135deg, #60a5fa 0%, #818cf8 50%, #c084fc 100%);
+  background: linear-gradient(135deg, #121211 40%, #C25E30 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-accent-dark {
+  background: linear-gradient(135deg, #FAF8F5 40%, #E0845B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gradient-text-salesforce {
-  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  background: linear-gradient(135deg, #FAF8F5 40%, #D4CEC3 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Background grid effect */
+/* Subtle Architectural Grids */
 .bg-grid-pattern {
-  background-size: 40px 40px;
+  background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(18, 18, 17, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 18, 17, 0.035) 1px, transparent 1px);
+}
+
+.bg-grid-pattern-dark {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
 }
 
 .bg-radial-fade {
-  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 65%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 65%, transparent 100%);
 }

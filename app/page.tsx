@@ -13,7 +13,7 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[#07080c] text-slate-100 selection:bg-cyan-500/30 selection:text-white">
+    <div className="relative min-h-screen bg-[#F8F6F1] text-[#121211] selection:bg-[#121211] selection:text-[#FAF8F5]">
       {/* Top Reading Progress Bar */}
       <ScrollProgress />
 
