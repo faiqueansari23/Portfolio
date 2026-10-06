@@ -50,7 +50,7 @@ export const metadata: Metadata = {
       'React Native Developer specializing in cross-platform Android & iOS development, store releases, and full-stack applications.',
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/',
   },
 };
 
