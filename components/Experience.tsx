@@ -9,13 +9,114 @@ import {
   FolderGit2,
 } from 'lucide-react';
 import { experiences } from '@/lib/data';
+import MobileCardStack from './MobileCardStack';
 
 export default function Experience() {
+  const renderExperienceCard = (
+    exp: (typeof experiences)[0],
+    _index: number,
+    isDeckMode?: boolean
+  ) => {
+    const isCurrent = exp.current;
+
+    return (
+      <div
+        className={`bg-[#181716] p-5 sm:p-7 rounded-2xl border transition-all duration-300 flex flex-col justify-between h-full ${
+          isCurrent ? 'border-[#C25E30]/40' : 'border-white/10 hover:border-white/20'
+        } ${isDeckMode ? 'shadow-2xl' : 'shadow-xl'}`}
+      >
+        <div>
+          {/* Header info */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-white/10">
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="text-lg sm:text-xl font-bold text-[#FAF8F5] tracking-tight">
+                  {exp.role}
+                </h3>
+                {isCurrent && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#C25E30]/15 text-[#E0845B] border border-[#C25E30]/30">
+                    Current Role
+                  </span>
+                )}
+              </div>
+              <p className="text-sm font-semibold text-[#D4CEC3] mt-0.5">
+                {exp.company}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 text-xs text-[#8C867C]">
+              <span className="flex items-center gap-1 font-medium">
+                <Calendar className="w-3.5 h-3.5 text-[#78746C]" />
+                {exp.period}
+              </span>
+              <span className="flex items-center gap-1">
+                <MapPin className="w-3.5 h-3.5 text-[#78746C]" />
+                {exp.location}
+              </span>
+            </div>
+          </div>
+
+          {/* Associated Production Projects */}
+          <div className="py-3.5">
+            <p className="text-[11px] font-bold text-[#8C867C] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <FolderGit2 className="w-3.5 h-3.5 text-[#C25E30]" />
+              Key Applications:
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {exp.projectsMentioned.map((proj, pIdx) => (
+                <span
+                  key={pIdx}
+                  className="px-2.5 py-1 rounded-lg bg-[#242321] border border-white/5 text-[11px] font-medium text-[#E0DDD5]"
+                >
+                  {proj}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Responsibilities list */}
+          <div className="space-y-2 pt-1">
+            <p className="text-[11px] font-bold text-[#8C867C] uppercase tracking-wider mb-1.5">
+              Contributions:
+            </p>
+            <ul className="space-y-2">
+              {exp.responsibilities.slice(0, 3).map((resp, rIdx) => (
+                <li
+                  key={rIdx}
+                  className="flex items-start gap-2 text-xs sm:text-sm text-[#B5B1A8] leading-relaxed"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#C25E30] shrink-0 mt-0.5" />
+                  <span>{resp}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Technologies Pills */}
+        <div className="mt-5 pt-4 border-t border-white/10">
+          <div className="flex flex-wrap gap-1.5">
+            {exp.technologies.slice(0, 5).map((tech, tIdx) => (
+              <span
+                key={tIdx}
+                className="px-2.5 py-1 rounded-md bg-[#222120] border border-white/5 text-[11px] font-medium text-[#D4CEC3]"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <section id="experience" className="py-24 relative overflow-hidden bg-[#141312]">
-      {/* Background ambient lighting */}
-      <div className="absolute inset-0 bg-grid-pattern-dark opacity-60 pointer-events-none" />
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-[#C25E30]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
+    <section id="experience" className="py-24 relative bg-[#141312]">
+      {/* Background ambient lighting safely clipped */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-grid-pattern-dark opacity-60" />
+        <div className="absolute top-1/3 right-0 w-96 h-96 bg-[#C25E30]/5 rounded-full blur-[140px] -z-10" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -33,8 +134,16 @@ export default function Experience() {
           </p>
         </div>
 
-        {/* Timeline Container */}
-        <div className="relative max-w-4xl mx-auto">
+        {/* Mobile View: Interactive Stack & Swipe Deck */}
+        <MobileCardStack
+          items={experiences}
+          renderCard={renderExperienceCard}
+          theme="dark"
+          initialMode="stack"
+        />
+
+        {/* Desktop View: Timeline Container */}
+        <div className="hidden md:block relative max-w-4xl mx-auto">
           {/* Vertical Timeline Guide Line */}
           <div className="absolute left-4 sm:left-8 top-3 bottom-3 w-[2px] bg-gradient-to-b from-[#C25E30] via-[#5E5A52] to-[#252422]" />
 

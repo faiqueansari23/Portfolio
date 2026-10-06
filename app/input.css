@@ -40,6 +40,7 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
     background-color: var(--bg-primary);
     color: var(--text-primary);
   }
@@ -47,7 +48,7 @@
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    overflow-x: clip;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

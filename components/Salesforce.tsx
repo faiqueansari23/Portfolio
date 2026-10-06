@@ -12,6 +12,7 @@ import {
   FolderGit2,
 } from 'lucide-react';
 import { salesforceLearning } from '@/lib/data';
+import MobileCardStack from './MobileCardStack';
 
 const categoryIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   ShieldCheck,
@@ -22,11 +23,58 @@ const categoryIconMap: Record<string, React.ComponentType<{ className?: string }
 };
 
 export default function Salesforce() {
+  const renderSalesforceProjectCard = (
+    proj: (typeof salesforceLearning.projects)[0],
+    _idx: number,
+    isDeckMode?: boolean
+  ) => {
+    return (
+      <div
+        className={`bg-[#181716] p-6 rounded-2xl border border-white/10 flex flex-col justify-between h-full transition-all space-y-4 ${
+          isDeckMode ? 'shadow-2xl' : 'shadow-xl hover:border-white/20'
+        }`}
+      >
+        <div className="space-y-3">
+          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#242321] text-[#D4CEC3] border border-white/10">
+            {proj.environment}
+          </span>
+          <h4 className="text-base font-bold text-[#FAF8F5]">{proj.title}</h4>
+          <p className="text-xs text-[#B5B1A8] leading-relaxed">
+            {proj.summary}
+          </p>
+
+          <div className="pt-2 space-y-1.5">
+            <p className="text-[11px] font-bold text-[#8C867C] uppercase tracking-wider">
+              Hands-On Work:
+            </p>
+            <ul className="space-y-1">
+              {proj.highlights.map((h, hIdx) => (
+                <li
+                  key={hIdx}
+                  className="flex items-start gap-2 text-xs text-[#A8A49C] leading-relaxed"
+                >
+                  <CheckCircle2 className="w-3 h-3 text-[#C25E30] shrink-0 mt-0.5" />
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="pt-4 border-t border-white/5 text-[11px] text-[#8C867C] font-mono">
+          #DeveloperOrg #Trailhead
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <section id="salesforce" className="py-24 relative overflow-hidden bg-[#141312]">
-      {/* Background ambient lighting */}
-      <div className="absolute inset-0 bg-grid-pattern-dark opacity-60 pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 w-[450px] h-[450px] bg-[#C25E30]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
+    <section id="salesforce" className="py-24 relative bg-[#141312]">
+      {/* Background ambient lighting safely clipped */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-grid-pattern-dark opacity-60" />
+        <div className="absolute top-1/2 right-1/4 w-[450px] h-[450px] bg-[#C25E30]/5 rounded-full blur-[140px] -z-10" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -110,7 +158,16 @@ export default function Salesforce() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Mobile View: Interactive Stack & Swipe Deck */}
+          <MobileCardStack
+            items={salesforceLearning.projects}
+            renderCard={renderSalesforceProjectCard}
+            theme="dark"
+            initialMode="stack"
+          />
+
+          {/* Desktop View: Grid */}
+          <div className="hidden md:grid md:grid-cols-3 gap-6">
             {salesforceLearning.projects.map((proj, idx) => (
               <motion.div
                 key={idx}
@@ -118,38 +175,8 @@ export default function Salesforce() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="bg-[#181716] p-6 rounded-2xl border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all space-y-4 shadow-2xs"
               >
-                <div className="space-y-3">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#242321] text-[#D4CEC3] border border-white/10">
-                    {proj.environment}
-                  </span>
-                  <h4 className="text-base font-bold text-[#FAF8F5]">{proj.title}</h4>
-                  <p className="text-xs text-[#B5B1A8] leading-relaxed">
-                    {proj.summary}
-                  </p>
-
-                  <div className="pt-2 space-y-1.5">
-                    <p className="text-[11px] font-bold text-[#8C867C] uppercase tracking-wider">
-                      Hands-On Work:
-                    </p>
-                    <ul className="space-y-1">
-                      {proj.highlights.map((h, hIdx) => (
-                        <li
-                          key={hIdx}
-                          className="flex items-start gap-2 text-xs text-[#A8A49C] leading-relaxed"
-                        >
-                          <CheckCircle2 className="w-3 h-3 text-[#C25E30] shrink-0 mt-0.5" />
-                          <span>{h}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-white/5 text-[11px] text-[#8C867C] font-mono">
-                  #DeveloperOrg #Trailhead
-                </div>
+                {renderSalesforceProjectCard(proj, idx, false)}
               </motion.div>
             ))}
           </div>

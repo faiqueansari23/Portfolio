@@ -3,12 +3,55 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, Calendar, Award } from 'lucide-react';
 import { educationList } from '@/lib/data';
+import MobileCardStack from './MobileCardStack';
 
 export default function Education() {
+  const renderEducationCard = (
+    edu: (typeof educationList)[0],
+    _index: number,
+    isDeckMode?: boolean
+  ) => {
+    return (
+      <div
+        className={`bg-white p-6 sm:p-7 rounded-2xl border border-[#E2DDD5] flex flex-col justify-between h-full transition-all duration-300 ${
+          isDeckMode ? 'shadow-2xl' : 'shadow-xl hover:border-[#121211]'
+        }`}
+      >
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="w-10 h-10 rounded-xl bg-[#121211] text-[#FAF8F5] flex items-center justify-center shrink-0 shadow-2xs">
+              <GraduationCap className="w-5 h-5" />
+            </div>
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF8F5] border border-[#E2DDD5] text-[#2C2A26] flex items-center gap-1.5">
+              <Calendar className="w-3 h-3 text-[#C25E30]" />
+              {edu.year}
+            </span>
+          </div>
+
+          <div>
+            <h3 className="text-base font-bold text-[#121211] group-hover:text-[#C25E30] transition-colors">
+              {edu.degree}
+            </h3>
+            <p className="text-xs text-[#57544E] font-medium mt-1">
+              {edu.institution}
+            </p>
+          </div>
+        </div>
+
+        <div className="pt-4 border-t border-[#E2DDD5] flex items-center gap-2 text-xs text-[#7D7971]">
+          <Award className="w-3.5 h-3.5 text-[#C25E30] shrink-0" />
+          <span>{edu.boardOrUniversity}</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <section id="education" className="py-24 relative overflow-hidden bg-[#F8F6F1]">
-      {/* Background ambient lighting */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none" />
+    <section id="education" className="py-24 relative bg-[#F8F6F1]">
+      {/* Background ambient lighting safely clipped */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-grid-pattern opacity-60" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -25,8 +68,18 @@ export default function Education() {
           </p>
         </div>
 
-        {/* Education Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {/* Mobile View: Interactive Stack & Swipe Deck */}
+        <div className="max-w-5xl mx-auto">
+          <MobileCardStack
+            items={educationList}
+            renderCard={renderEducationCard}
+            theme="light"
+            initialMode="stack"
+          />
+        </div>
+
+        {/* Desktop View: Grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {educationList.map((edu, idx) => (
             <motion.div
               key={idx}
@@ -34,33 +87,8 @@ export default function Education() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: idx * 0.1 }}
-              className="bg-white p-6 sm:p-7 rounded-2xl border border-[#E2DDD5] hover:border-[#121211] transition-all duration-300 flex flex-col justify-between group space-y-5 shadow-2xs"
             >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-[#121211] text-[#FAF8F5] flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
-                    <GraduationCap className="w-5 h-5" />
-                  </div>
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#FAF8F5] border border-[#E2DDD5] text-[#2C2A26] flex items-center gap-1.5">
-                    <Calendar className="w-3 h-3 text-[#C25E30]" />
-                    {edu.year}
-                  </span>
-                </div>
-
-                <div>
-                  <h3 className="text-base font-bold text-[#121211] group-hover:text-[#C25E30] transition-colors">
-                    {edu.degree}
-                  </h3>
-                  <p className="text-xs text-[#57544E] font-medium mt-1">
-                    {edu.institution}
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-[#E2DDD5] flex items-center gap-2 text-xs text-[#7D7971]">
-                <Award className="w-3.5 h-3.5 text-[#C25E30] shrink-0" />
-                <span>{edu.boardOrUniversity}</span>
-              </div>
+              {renderEducationCard(edu, idx, false)}
             </motion.div>
           ))}
         </div>
